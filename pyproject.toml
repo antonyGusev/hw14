@@ -1,0 +1,45 @@
+[project]
+name = 'embedded-tests'
+version = '0.1.0'
+requires-python = '>=3.11'
+dependencies = [
+  'pytest>=8.2',
+  'pyserial>=3.5',
+  'poethepoet>=0.29',
+  'python-dotenv',
+  'ruff',
+]
+
+[tool.setuptools.packages.find]
+where = ['.']
+include = [
+  'framework*',
+  'lib*',
+]
+exclude = [
+  'tests*',
+]
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+python_files = ['test_*.py']
+pythonpath = ['.']
+addopts = '-v --tb=short'
+
+[tool.poe.tasks]
+regression = 'pytest tests/wifi/test_wifi_positive.py tests/wifi/test_wifi_negative.py'
+
+positive_tests = 'pytest tests/wifi/test_wifi_positive.py'
+negative_tests = 'pytest tests/wifi/test_wifi_negative.py'
+
+lint = 'ruff check .'
+format = 'ruff format .'
+
+[tool.ruff]
+line-length = 100
+indent-width = 2
+
+[tool.ruff.format]
+quote-style = 'single'
+indent-style = 'space'
+line-ending = 'auto'
