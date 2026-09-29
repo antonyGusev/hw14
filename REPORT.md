@@ -1,6 +1,8 @@
-# WiFi Test Report
+# Test Report
 
-## Environment Variables
+## Part 1 — WiFi Tests
+
+### Environment Variables
 
 WiFi credentials used by the tests are configured through environment variables:
 
@@ -37,7 +39,7 @@ $env:SSID="your_wifi_ssid"
 $env:PASSWORD="your_wifi_password"
 ```
 
-## Running Tests
+### Running Tests
 
 Run the complete WiFi regression suite:
 
@@ -59,6 +61,40 @@ Negative tests only:
 poe negative_tests
 ```
 
-## Test Run Screenshot
+### Test Run Screenshot
 
 ![WiFi test run](screenshots/wifi_test_report.png)
+
+---
+
+## Part 2 — BLE Smoke Test
+
+### Environment Variable
+
+The BLE LED characteristic UUID is configured through the `LED_CHAR_UUID` environment variable.
+
+Add it to the existing project environment configuration:
+
+```env
+LED_CHAR_UUID=...
+```
+
+Alternatively, set it for the current PowerShell session:
+
+```powershell
+$env:LED_CHAR_UUID="..."
+```
+
+### Running the BLE Test
+
+Run the BLE smoke test:
+
+```powershell
+poe ble_smoke
+```
+
+The test verifies both BLE control and UART observation channels: it discovers and connects to `SENTRY-BLE`, writes the LED ON/OFF values to the configured characteristic, and verifies the corresponding `LED ON!` and `LED OFF!` UART logs.
+
+### Test Run Screenshot
+
+![BLE smoke test run](screenshots/ble_test_report.png)

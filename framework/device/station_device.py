@@ -25,3 +25,6 @@ class StationDevice:
     self._driver.write_command('reboot')
 
     return self._driver.wait_for_response("ready. Type 'help' for commands", timeout=10)
+  
+  def wait_for_log(self, pattern: str, timeout: float = 5) -> list[str]:
+    return self._driver.wait_for_response(pattern, timeout)
